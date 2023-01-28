@@ -1,7 +1,6 @@
 package com.api.meusgastos.domain.model;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 import com.api.meusgastos.domain.enums.ETipoTitulo;
 
@@ -11,8 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -37,28 +34,26 @@ public class Titulo {
     @Column(nullable = false)
     private ETipoTitulo tipo;
 
-    // @ManyToOne
-    // @JoinColumn(name = "idCentroDeCusto")
-    // private CentroDeCusto centroDeCusto;
+    @ManyToOne
+    @JoinColumn(name = "idCentroDeCusto")
+    private CentroDeCusto centroDeCusto;
 
-    @ManyToMany
-    @JoinTable(
-        name = "titulo_centrodecusto",
-        joinColumns = @JoinColumn(name = "idTitulo"),
-        inverseJoinColumns = @JoinColumn(name = "idCentroDeCusto")
-    )
-    private List<CentroDeCusto> centrosDeCustos;
+    // @ManyToMany
+    // @JoinTable(
+    //     name = "titulo_centrodecusto",
+    //     joinColumns = @JoinColumn(name = "idTitulo"),
+    //     inverseJoinColumns = @JoinColumn(name = "idCentroDeCusto")
+    // )
+    // private List<CentroDeCusto> centrosDeCustos;
 
     @Column(nullable = false)
     private Double valor;
 
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
 
-    private Date dataReferencia;
+    private LocalDate dataVencimento;
 
-    private Date dataVencimento;
-
-    private Date dataPagamento;
+    private LocalDate dataPagamento;
 
     @Column(columnDefinition = "TEXT")
     private String observacao;

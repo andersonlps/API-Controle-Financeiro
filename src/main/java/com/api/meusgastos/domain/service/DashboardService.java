@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.meusgastos.domain.enums.ETipoTitulo;
 import com.api.meusgastos.dto.dashboard.DashboardResponseDto;
+import com.api.meusgastos.dto.dashboard.DashboardTotalResponseDto;
 import com.api.meusgastos.dto.titulo.TituloResponseDto;
 
 @Service
@@ -40,5 +41,28 @@ public class DashboardService {
         saldo = totalAreceber - totalApagar;
 
         return new DashboardResponseDto(totalApagar, totalAreceber, saldo, titulosApagar, titulosAreceber);
+    }
+
+    public DashboardTotalResponseDto obterTotal() {
+
+        List<TituloResponseDto> titulos = tituloService.obterTodos();
+
+        Double totalApagar = 0.0;
+        Double totalAreceber = 0.0;
+        Double saldo = 0.0;
+
+        for (TituloResponseDto titulo : titulos) {
+            
+            if(titulo.getTipo() == ETipoTitulo.APAGAR && titulo.getDataPagamento() == null) {
+                totalApagar += titulo.getValor();
+
+            }else if(titulo.getTipo() == ETipoTitulo.ARECEBER && titulo.getDataPagamento() == null) {
+                totalAreceber += titulo.getValor();
+            }
+        }
+
+        saldo = totalAreceber - totalApagar;
+
+        return new DashboardTotalResponseDto(totalApagar, totalAreceber, saldo);
     }
 }

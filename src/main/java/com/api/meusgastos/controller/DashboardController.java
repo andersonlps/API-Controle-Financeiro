@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.meusgastos.domain.service.DashboardService;
 import com.api.meusgastos.dto.dashboard.DashboardResponseDto;
+import com.api.meusgastos.dto.dashboard.DashboardTotalResponseDto;
 
 @CrossOrigin("*")
 @RestController
@@ -26,5 +27,10 @@ public class DashboardController {
     ) {
 
         return ResponseEntity.ok(dashboardService.obterFluxoDeCaixa(periodoInicial, periodoFinal));
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<DashboardTotalResponseDto> obterTotal() {
+        return ResponseEntity.ok(dashboardService.obterTotal());
     }
 }

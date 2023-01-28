@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         usuarioResponse.setId(usuario.getId());
         usuarioResponse.setEmail(usuario.getEmail());
         usuarioResponse.setNome(usuario.getNome());
-        usuarioResponse.setFoto(usuario.getFoto());
+        // usuarioResponse.setFoto(usuario.getImagem().toString());
         usuarioResponse.setDataCadastro(usuario.getDataCadastro());
         usuarioResponse.setDataInativacao(usuario.getDataInativacao());
 

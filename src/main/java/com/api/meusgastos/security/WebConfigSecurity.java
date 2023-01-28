@@ -38,7 +38,10 @@ public class WebConfigSecurity {
 				.cors().and()
 				.csrf().disable()
 				.authorizeHttpRequests((auth) -> auth
-						.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/usuarios/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
+						.requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
+						.requestMatchers(HttpMethod.PUT, "/api/dashboard/**").permitAll()
 						.anyRequest().authenticated())
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

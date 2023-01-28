@@ -13,10 +13,11 @@ public interface TituloRepository extends JpaRepository<Titulo, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM public.titulo " +
             "WHERE data_vencimento " +
-            "BETWEEN TO_TIMESTAMP(:periodoInicial, 'YYYY-MM-DD hh24:MI:SS') AND " +
+            "BETWEEN TO_TIMESTAMP(:periodoInicial, 'YYYY-MM-DD') AND " +
             "TO_TIMESTAMP(:periodoFinal, 'YYYY-MM-DD hh24:MI:SS')")
     List<Titulo> obterFluxoCaixaPorDataVencimento(@Param("periodoInicial") String periodoInicial, @Param("periodoFinal") String periodoFinal);
 
     List<Titulo> findByUsuario(Usuario usuario);
 
 }
+

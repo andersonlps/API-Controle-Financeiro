@@ -50,6 +50,18 @@ public class TituloController {
         return ResponseEntity.ok(tituloService.atualizar(id, dto));
     }
 
+    @PutMapping("/pagar/{id}")
+    public ResponseEntity<?> pagar(@PathVariable Long id) {
+        tituloService.pagar(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/despagar/{id}")
+    public ResponseEntity<?> despagar(@PathVariable Long id) {
+        tituloService.despagar(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         tituloService.deletar(id);

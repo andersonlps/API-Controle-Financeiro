@@ -1,6 +1,6 @@
 package com.api.meusgastos.domain.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +31,7 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
     public List<TituloResponseDto> obterTodos() {
        
        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
+
        List<Titulo> titulos = tituloRepository.findByUsuario(usuario);
         
        return titulos.stream()
@@ -61,7 +61,7 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         titulo.setUsuario(usuario);
         titulo.setId(null);
-        titulo.setDataCadastro(new Date());
+        titulo.setDataCadastro(LocalDate.now());
         titulo = tituloRepository.save(titulo);
 
         return mapper.map(titulo, TituloResponseDto.class);
@@ -92,10 +92,37 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
         tituloRepository.deleteById(id); 
     }
 
+    public void pagar(Long id) {
+
+        Optional<Titulo> optTitulo = tituloRepository.findById(id);
+        if (optTitulo.isEmpty()) {
+            throw new ResourceNotFoundException("Não foi possível encontrar o título com o id: " + id);
+        }
+        Titulo titulo = optTitulo.get();
+
+        titulo.setDataPagamento(LocalDate.now());
+
+        tituloRepository.save(titulo);
+    }
+
+    public void despagar(Long id) {
+
+        Optional<Titulo> optTitulo = tituloRepository.findById(id);
+        if (optTitulo.isEmpty()) {
+            throw new ResourceNotFoundException("Não foi possível encontrar o título com o id: " + id);
+        }
+        Titulo titulo = optTitulo.get();
+
+        titulo.setDataPagamento(null);
+
+        tituloRepository.save(titulo);
+    }
+
     public List<TituloResponseDto> obterPorDataDeVencimento(String periodoInicial, String periodoFinal) {
         List<Titulo> titulos = tituloRepository.obterFluxoCaixaPorDataVencimento(periodoInicial, periodoFinal);
-        
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return titulos.stream()
+                .filter(titulo -> titulo.getUsuario().getId().equals(usuario.getId()))
                 .map(titulo -> mapper.map(titulo, TituloResponseDto.class))
                 .collect(Collectors.toList());
 

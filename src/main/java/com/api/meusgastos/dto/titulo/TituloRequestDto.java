@@ -1,7 +1,6 @@
 package com.api.meusgastos.dto.titulo;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 import com.api.meusgastos.domain.enums.ETipoTitulo;
 import com.api.meusgastos.dto.centrodecusto.CentroDeCustoRequestDto;
@@ -19,16 +18,14 @@ public class TituloRequestDto {
 
     private ETipoTitulo tipo;
 
-    private List<CentroDeCustoRequestDto> centrosDeCustos;
+    private CentroDeCustoRequestDto centroDeCusto;
 
     private Double valor;
 
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
 
-    private Date dataReferencia;
+    private LocalDate dataVencimento;
 
-    private Date dataVencimento;
-
-    private Date dataPagamento;
+    private LocalDate dataPagamento;
     
 }
