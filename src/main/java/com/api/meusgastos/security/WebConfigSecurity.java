@@ -67,7 +67,7 @@ public class WebConfigSecurity {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000/", "http://127.0.0.1:5173/", "http://localhost:5174/", "exp://192.168.0.168:19001", "http://localhost:19006", "exp://192.168.0.168:19006"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000/", "http://127.0.0.1:5173/", "http://localhost:5174/", "exp://192.168.0.168:19001", "http://localhost:19006", "exp://192.168.0.168:19006", "helpless-side-production.up.railway.app"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -18,9 +18,8 @@ public class EmailConfig {
         message.setTo(para);
         message.setSubject(assunto);
         message.setText(texto);
-        message.setText("\n Este é seu link de redefinição de senha \n "+
-                    "\n Clique no Link abaixo \n"+
-                  "copie e cole na barra de endereço do seu navegador\n" 
+        message.setText("\n Este é seu token de redefinição de senha \n "+
+                  "copie e cole no seu app\n" 
                                        + texto +  "\n\n\n\n"
                              + "Atenciosamente \n      Meus Gastos\n");
         javaMailSender.send(message);
@@ -37,7 +36,6 @@ public class EmailConfig {
                         "\n Seu login será com seu email: " + para +        
                         "\n Atenciosamente \n    Meus Gastos\n");
                         
-                             System.out.println("teste mail");
         javaMailSender.send(message);
     }
 }
