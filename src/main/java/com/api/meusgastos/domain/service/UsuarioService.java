@@ -80,7 +80,7 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
         String senha = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senha);
-
+        
         usuario.setId(null);
         usuario.setDataCadastro(new Date());
 
@@ -139,18 +139,24 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         return mapper.map(usuarioDB, UsuarioResponseDto.class);
     }
 
+    // @Override
+    // public void deletar(Long id) {
+
+    //     Optional<Usuario> optUsuario = usuarioRepository.findById(id);
+    //     if (optUsuario.isEmpty()) {
+    //         throw new ResourceNotFoundException("Não foi possível encontrar o usuário com o id: " + id);
+    //     }
+    //     Usuario usuario = optUsuario.get();
+
+    //     usuario.setDataInativacao(new Date());
+
+    //     usuarioRepository.save(usuario);
+    // }
+
     @Override
     public void deletar(Long id) {
-
-        Optional<Usuario> optUsuario = usuarioRepository.findById(id);
-        if (optUsuario.isEmpty()) {
-            throw new ResourceNotFoundException("Não foi possível encontrar o usuário com o id: " + id);
-        }
-        Usuario usuario = optUsuario.get();
-
-        usuario.setDataInativacao(new Date());
-
-        usuarioRepository.save(usuario);
+        obterPorId(id);
+        usuarioRepository.deleteById(id);
     }
 
     private void validarUsuario(UsuarioRequestDto dto) {

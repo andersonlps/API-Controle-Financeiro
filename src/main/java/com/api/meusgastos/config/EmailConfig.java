@@ -20,8 +20,9 @@ public class EmailConfig {
         message.setText(texto);
         message.setText("\n Este é seu token de redefinição de senha \n "+
                   "copie e cole no seu app\n" 
-                                       + texto +  "\n\n\n\n"
-                             + "Atenciosamente \n      Meus Gastos\n");
+                                       +  
+                                       texto +  "\n\n\n\n"
+                             + "Atenciosamente \n      Gestão Financeira Pessoal\n");
         javaMailSender.send(message);
     }
 
@@ -34,7 +35,7 @@ public class EmailConfig {
         message.setText("\n Olá, "+ nome +"!" + "\n"+
                         "\n Seu usuario foi cadastrado com sucesso!" +
                         "\n Seu login será com seu email: " + para +        
-                        "\n Atenciosamente \n    Meus Gastos\n");
+                        "\n Atenciosamente \n    Gestão Financeira Pessoal\n");
                         
         javaMailSender.send(message);
     }

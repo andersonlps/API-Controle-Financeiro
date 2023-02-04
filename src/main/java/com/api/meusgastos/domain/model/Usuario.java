@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -44,8 +47,12 @@ public class Usuario implements UserDetails {
 
     private Date dataInativacao;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Titulo> titulos;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<CentroDeCusto> centroDeCustos;
 
     //#region Framework
 
